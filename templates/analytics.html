@@ -1,0 +1,185 @@
+{% extends "layout.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/analytics.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="analytics-page">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Analytics Dashboard</h2>
+
+            <p>Monitor AI model performance and recognition statistics.</p>
+
+        </div>
+
+    </div>
+
+    <!-- Top Cards -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <h5>Total Predictions</h5>
+
+            <h2>12,548</h2>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h5>Accuracy</h5>
+
+            <h2>98.72%</h2>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h5>Average Confidence</h5>
+
+            <h2>98.31%</h2>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h5>FPS</h5>
+
+            <h2>30</h2>
+
+        </div>
+
+    </div>
+
+    <!-- Line Chart -->
+
+    <div class="chart-card">
+
+        <h3>Prediction Trend</h3>
+
+        <canvas id="predictionChart"></canvas>
+
+    </div>
+
+    <!-- Bottom Charts -->
+
+    <div class="chart-grid">
+
+        <div class="chart-card">
+
+            <h3>Gesture Distribution</h3>
+
+            <canvas id="gestureChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h3>Top Gestures</h3>
+
+            <canvas id="barChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+new Chart(document.getElementById('predictionChart'),{
+
+type:'line',
+
+data:{
+
+labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+
+datasets:[{
+
+label:'Predictions',
+
+data:[120,180,150,220,240,280,300],
+
+borderColor:'#6D5DFC',
+
+backgroundColor:'rgba(109,93,252,.15)',
+
+fill:true,
+
+tension:.4
+
+}]
+
+}
+
+});
+
+new Chart(document.getElementById('gestureChart'),{
+
+type:'doughnut',
+
+data:{
+
+labels:['HELLO','YES','NO','THANK YOU'],
+
+datasets:[{
+
+data:[40,25,20,15],
+
+backgroundColor:[
+
+'#6D5DFC',
+
+'#10B981',
+
+'#F59E0B',
+
+'#EF4444'
+
+]
+
+}]
+
+}
+
+});
+
+new Chart(document.getElementById('barChart'),{
+
+type:'bar',
+
+data:{
+
+labels:['HELLO','YES','NO','GOOD','THANK YOU'],
+
+datasets:[{
+
+label:'Count',
+
+data:[320,280,220,160,110],
+
+backgroundColor:'#6D5DFC'
+
+}]
+
+}
+
+});
+
+</script>
+
+{% endblock %}

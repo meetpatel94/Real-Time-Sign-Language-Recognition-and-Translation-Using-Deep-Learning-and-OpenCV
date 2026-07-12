@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="settings-page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>System Settings</h2>
+
+            <p>Configure your AI gesture recognition system.</p>
+
+        </div>
+
+    </div>
+
+    <div class="settings-grid">
+
+        <!-- Camera Settings -->
+
+        <div class="settings-card">
+
+            <h3><i class="bi bi-camera-video"></i> Camera Settings</h3>
+
+            <label>Camera Device</label>
+
+            <select>
+                <option>Default Camera</option>
+                <option>Webcam 1</option>
+            </select>
+
+            <label>Resolution</label>
+
+            <select>
+                <option>1280 × 720</option>
+                <option>1920 × 1080</option>
+            </select>
+
+            <label>FPS</label>
+
+            <select>
+                <option>30 FPS</option>
+                <option>60 FPS</option>
+            </select>
+
+        </div>
+
+        <!-- AI Settings -->
+
+        <div class="settings-card">
+
+            <h3><i class="bi bi-cpu"></i> AI Settings</h3>
+
+            <label>Confidence Threshold</label>
+
+            <input type="range" min="50" max="100" value="85">
+
+            <div class="switch-row">
+
+                <span>Voice Output</span>
+
+                <input type="checkbox" checked>
+
+            </div>
+
+            <div class="switch-row">
+
+                <span>Auto Translate</span>
+
+                <input type="checkbox" checked>
+
+            </div>
+
+            <div class="switch-row">
+
+                <span>Save History</span>
+
+                <input type="checkbox" checked>
+
+            </div>
+
+        </div>
+
+        <!-- Appearance -->
+
+        <div class="settings-card">
+
+            <h3><i class="bi bi-palette"></i> Appearance</h3>
+
+            <label>Theme</label>
+
+            <select>
+
+                <option>Dark</option>
+
+                <option>Light</option>
+
+            </select>
+
+            <label>Language</label>
+
+            <select>
+
+                <option>English</option>
+
+                <option>Hindi</option>
+
+                <option>Gujarati</option>
+
+            </select>
+
+        </div>
+
+        <!-- Danger Zone -->
+
+        <div class="settings-card danger">
+
+            <h3><i class="bi bi-exclamation-triangle"></i> Danger Zone</h3>
+
+            <button class="danger-btn">
+
+                Reset Settings
+
+            </button>
+
+            <button class="danger-btn">
+
+                Clear Dataset Cache
+
+            </button>
+
+            <button class="danger-btn">
+
+                Delete History
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

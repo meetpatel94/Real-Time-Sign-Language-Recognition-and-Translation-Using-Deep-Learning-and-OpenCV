@@ -1,0 +1,179 @@
+{% extends "layout.html" %}
+
+{% block title %}Model Training{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/training.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="training-page">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+            <h2>Model Training</h2>
+            <p>Train, monitor and export your hand gesture recognition model.</p>
+        </div>
+
+        <div class="header-actions">
+
+            <button class="btn-primary">
+                <i class="bi bi-play-fill"></i>
+                Start Training
+            </button>
+
+            <button class="btn-secondary">
+                <i class="bi bi-stop-fill"></i>
+                Stop
+            </button>
+
+            <button class="btn-secondary">
+                <i class="bi bi-download"></i>
+                Export Model
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Configuration -->
+
+    <div class="config-grid">
+
+        <div class="config-card">
+            <h5>Dataset</h5>
+            <h3>ASL Dataset</h3>
+        </div>
+
+        <div class="config-card">
+            <h5>Model</h5>
+            <h3>CNN</h3>
+        </div>
+
+        <div class="config-card">
+            <h5>Epochs</h5>
+            <h3>100</h3>
+        </div>
+
+        <div class="config-card">
+            <h5>Batch Size</h5>
+            <h3>32</h3>
+        </div>
+
+    </div>
+
+    <!-- Progress -->
+
+    <div class="progress-card">
+
+        <div class="progress-header">
+
+            <h3>Training Progress</h3>
+
+            <span>65%</span>
+
+        </div>
+
+        <div class="progress-bar">
+
+            <div class="progress-fill"></div>
+
+        </div>
+
+        <div class="progress-info">
+
+            <span>Epoch : 65 / 100</span>
+
+            <span>ETA : 2 min</span>
+
+        </div>
+
+    </div>
+
+    <!-- Metrics -->
+
+    <div class="metrics-grid">
+
+        <div class="metric-card">
+
+            <h5>Accuracy</h5>
+
+            <h2>98.72%</h2>
+
+        </div>
+
+        <div class="metric-card">
+
+            <h5>Loss</h5>
+
+            <h2>0.021</h2>
+
+        </div>
+
+        <div class="metric-card">
+
+            <h5>Validation Accuracy</h5>
+
+            <h2>98.15%</h2>
+
+        </div>
+
+        <div class="metric-card">
+
+            <h5>Learning Rate</h5>
+
+            <h2>0.001</h2>
+
+        </div>
+
+    </div>
+
+    <!-- Logs + Charts -->
+
+    <div class="training-grid">
+
+        <div class="logs-card">
+
+            <div class="section-title">
+
+                <h3>Training Logs</h3>
+
+            </div>
+
+            <div class="logs">
+
+                <p>✔ Epoch 1 Completed</p>
+                <p>✔ Epoch 2 Completed</p>
+                <p>✔ Epoch 3 Completed</p>
+                <p>✔ Epoch 4 Completed</p>
+                <p>✔ Epoch 5 Completed</p>
+
+            </div>
+
+        </div>
+
+        <div class="chart-card">
+
+            <div class="section-title">
+
+                <h3>Training Graph</h3>
+
+            </div>
+
+            <div class="chart-placeholder">
+
+                📈 Accuracy & Loss Graph
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

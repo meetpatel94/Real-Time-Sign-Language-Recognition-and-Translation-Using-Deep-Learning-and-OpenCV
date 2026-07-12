@@ -1,0 +1,145 @@
+{% extends "layout.html" %}
+
+{% block title %}History{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="history-page">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Recognition History</h2>
+
+            <p>View all recognized gestures and prediction history.</p>
+
+        </div>
+
+        <div class="header-actions">
+
+            <button class="btn-primary">
+                <i class="bi bi-download"></i>
+                Export CSV
+            </button>
+
+            <button class="btn-secondary">
+                <i class="bi bi-trash"></i>
+                Clear History
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <i class="bi bi-search"></i>
+
+        <input type="text" placeholder="Search gesture...">
+
+    </div>
+
+    <!-- Table -->
+
+    <div class="table-card">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date & Time</th>
+                    <th>Gesture</th>
+                    <th>Confidence</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>12 Jul 2026 08:30 PM</td>
+                    <td>HELLO</td>
+                    <td>98.72%</td>
+                    <td><span class="success">Success</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>12 Jul 2026 08:31 PM</td>
+                    <td>THANK YOU</td>
+                    <td>97.95%</td>
+                    <td><span class="success">Success</span></td>
+
+                </tr>
+
+                <tr>
+
+                    <td>12 Jul 2026 08:32 PM</td>
+                    <td>YES</td>
+                    <td>99.11%</td>
+                    <td><span class="success">Success</span></td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <h5>Total Predictions</h5>
+
+            <h2>1,254</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h5>Today's Predictions</h5>
+
+            <h2>84</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h5>Average Confidence</h5>
+
+            <h2>98.64%</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h5>Top Gesture</h5>
+
+            <h2>HELLO</h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

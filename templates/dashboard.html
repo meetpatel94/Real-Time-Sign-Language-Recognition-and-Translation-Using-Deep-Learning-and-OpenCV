@@ -1,0 +1,177 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<!-- Hero Section -->
+
+<div class="hero">
+
+    <div>
+
+        <h2>Welcome Back, Meet 👋</h2>
+
+        <p>
+            Monitor your hand gesture recognition system,
+            dataset, model performance and live prediction.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <div class="card-icon blue">
+            <i class="bi bi-images"></i>
+        </div>
+
+        <div class="card-info">
+            <h5>Total Dataset</h5>
+            <h2>2,500</h2>
+            <span>Images</span>
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="card-icon green">
+            <i class="bi bi-check-circle"></i>
+        </div>
+
+        <div class="card-info">
+            <h5>Accuracy</h5>
+            <h2>98.72%</h2>
+            <span>Model Performance</span>
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="card-icon orange">
+            <i class="bi bi-cpu"></i>
+        </div>
+
+        <div class="card-info">
+            <h5>Model Status</h5>
+            <h2>Ready</h2>
+            <span>Loaded Successfully</span>
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="card-icon red">
+            <i class="bi bi-camera-video"></i>
+        </div>
+
+        <div class="card-info">
+            <h5>Live Camera</h5>
+            <h2>Offline</h2>
+            <span>Not Started</span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Performance + Status -->
+
+<div class="dashboard-grid">
+
+    <div class="performance-card">
+
+        <div class="card-header">
+
+            <h4>Performance Overview</h4>
+
+            <button>Last 7 Days</button>
+
+        </div>
+
+        <div class="chart-placeholder">
+
+            📈 Chart will appear here
+
+        </div>
+
+    </div>
+
+    <div class="status-card">
+
+        <h4>System Status</h4>
+
+        <br>
+
+        <div class="status-item">
+            <span>Camera</span>
+            <span class="online">Online</span>
+        </div>
+
+        <div class="status-item">
+            <span>Dataset</span>
+            <span class="online">Loaded</span>
+        </div>
+
+        <div class="status-item">
+            <span>Model</span>
+            <span class="online">Ready</span>
+        </div>
+
+        <div class="status-item">
+            <span>Translation</span>
+            <span class="offline">Disabled</span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Recent Activities -->
+
+<div class="recent-card">
+
+    <div class="card-header">
+
+        <h4>Recent Activities</h4>
+
+        <a href="#">View All</a>
+
+    </div>
+
+    <table>
+
+        <tr>
+            <td>Dataset Uploaded</td>
+            <td>2 Minutes Ago</td>
+        </tr>
+
+        <tr>
+            <td>Training Started</td>
+            <td>10 Minutes Ago</td>
+        </tr>
+
+        <tr>
+            <td>Prediction Completed</td>
+            <td>25 Minutes Ago</td>
+        </tr>
+
+    </table>
+
+</div>
+
+{% endblock %}

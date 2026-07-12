@@ -1,0 +1,208 @@
+{% extends "layout.html" %}
+
+{% block title %}Dataset{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dataset.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="dataset-container">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+            <h2>Dataset Management</h2>
+            <p>Manage gesture images, classes and dataset information.</p>
+        </div>
+
+        <div class="header-actions">
+
+            <button class="btn-primary">
+                <i class="bi bi-upload"></i>
+                Upload Dataset
+            </button>
+
+            <button class="btn-secondary">
+                <i class="bi bi-camera"></i>
+                Capture Images
+            </button>
+
+            <button class="btn-secondary">
+                <i class="bi bi-file-earmark-zip"></i>
+                Import ZIP
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <i class="bi bi-search"></i>
+
+        <input
+            type="text"
+            placeholder="Search gesture class..."
+        >
+
+    </div>
+
+    <!-- Table -->
+
+    <div class="table-card">
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>Gesture</th>
+
+                <th>Images</th>
+
+                <th>Training</th>
+
+                <th>Testing</th>
+
+                <th>Status</th>
+
+                <th>Action</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr>
+
+                <td>A</td>
+
+                <td>500</td>
+
+                <td>400</td>
+
+                <td>100</td>
+
+                <td>
+                    <span class="ready">Ready</span>
+                </td>
+
+                <td class="action-icons">
+
+                    <i class="bi bi-eye"></i>
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    <i class="bi bi-trash"></i>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>B</td>
+
+                <td>500</td>
+
+                <td>400</td>
+
+                <td>100</td>
+
+                <td>
+                    <span class="ready">Ready</span>
+                </td>
+
+                <td class="action-icons">
+
+                    <i class="bi bi-eye"></i>
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    <i class="bi bi-trash"></i>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>C</td>
+
+                <td>500</td>
+
+                <td>400</td>
+
+                <td>100</td>
+
+                <td>
+                    <span class="ready">Ready</span>
+                </td>
+
+                <td class="action-icons">
+
+                    <i class="bi bi-eye"></i>
+
+                    <i class="bi bi-pencil-square"></i>
+
+                    <i class="bi bi-trash"></i>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <h4>Total Classes</h4>
+
+            <h2>26</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Total Images</h4>
+
+            <h2>13,000</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Training Images</h4>
+
+            <h2>10,400</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Testing Images</h4>
+
+            <h2>2,600</h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

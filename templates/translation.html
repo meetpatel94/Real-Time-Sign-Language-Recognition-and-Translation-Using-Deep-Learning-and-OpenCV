@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+
+{% block title %}Translation{% endblock %}
+
+{% block css %}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/translation.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<div class="translation-page">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Gesture Translation</h2>
+
+            <p>Translate recognized gestures into multiple languages.</p>
+
+        </div>
+
+    </div>
+
+    <!-- Main Grid -->
+
+    <div class="translation-grid">
+
+        <!-- LEFT -->
+
+        <div class="translation-left">
+
+            <div class="prediction-card">
+
+                <h4>Current Prediction</h4>
+
+                <div class="prediction-box">
+
+                    👋 HELLO
+
+                </div>
+
+            </div>
+
+            <div class="translate-card">
+
+                <h4>Translate To</h4>
+
+                <select>
+
+                    <option>English</option>
+                    <option>Hindi</option>
+                    <option>Gujarati</option>
+                    <option>French</option>
+                    <option>German</option>
+
+                </select>
+
+                <textarea readonly>
+
+नमस्ते
+
+                </textarea>
+
+                <div class="action-buttons">
+
+                    <button class="btn-primary">
+                        <i class="bi bi-volume-up"></i>
+                        Speak
+                    </button>
+
+                    <button class="btn-secondary">
+                        <i class="bi bi-clipboard"></i>
+                        Copy
+                    </button>
+
+                    <button class="btn-secondary">
+                        <i class="bi bi-download"></i>
+                        Export
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="translation-right">
+
+            <div class="history-card">
+
+                <h4>Translation History</h4>
+
+                <ul>
+
+                    <li>HELLO → नमस्ते</li>
+
+                    <li>YES → हाँ</li>
+
+                    <li>NO → नहीं</li>
+
+                    <li>THANK YOU → धन्यवाद</li>
+
+                    <li>GOOD → अच्छा</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

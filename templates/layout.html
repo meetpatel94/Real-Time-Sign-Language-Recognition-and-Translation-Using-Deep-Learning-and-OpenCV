@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="layout">
+
+    {% include "components/sidebar.html" %}
+
+    <div class="main">
+
+        {% include "components/navbar.html" %}
+
+        <div class="content">
+
+            {% block page_content %}
+            {% endblock %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

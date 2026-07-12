@@ -1,0 +1,106 @@
+<div class="sidebar">
+
+    <!-- Logo -->
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="bi bi-hand-index-thumb-fill"></i>
+        </div>
+
+        <div>
+            <h3>GestureAI</h3>
+            <small>Recognition System</small>
+        </div>
+
+    </div>
+
+    <!-- Menu -->
+
+    <ul>
+
+        <li class="{{ 'active' if active_page == 'dashboard' else '' }}">
+            <a href="{{ url_for('dashboard') }}">
+                <i class="bi bi-grid-fill"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'dataset' else '' }}">
+            <a href="{{ url_for('dataset') }}">
+                <i class="bi bi-folder-fill"></i>
+                <span>Dataset</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'model_training' else '' }}">
+            <a href="{{ url_for('model_training') }}">
+                <i class="bi bi-cpu-fill"></i>
+                <span>Model Training</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'live_recognition' else '' }}">
+            <a href="{{ url_for('live_recognition') }}">
+                <i class="bi bi-camera-video-fill"></i>
+                <span>Live Recognition</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'history' else '' }}">
+            <a href="{{ url_for('history') }}">
+                <i class="bi bi-clock-history"></i>
+                <span>History</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'analytics' else '' }}">
+            <a href="{{ url_for('analytics') }}">
+                <i class="bi bi-graph-up-arrow"></i>
+                <span>Analytics</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'translation' else '' }}">
+            <a href="{{ url_for('translation') }}">
+                <i class="bi bi-translate"></i>
+                <span>Translation</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'settings' else '' }}">
+            <a href="{{ url_for('settings') }}">
+                <i class="bi bi-gear-fill"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+
+        <li class="{{ 'active' if active_page == 'about' else '' }}">
+            <a href="{{ url_for('about') }}">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>About</span>
+            </a>
+        </li>
+
+    </ul>
+    <div class="sidebar-footer">
+
+    <div class="system-status">
+
+        <div class="status-dot"></div>
+
+        <div>
+
+            <h6>AI SYSTEM</h6>
+
+            <small>Version 1.0</small>
+
+        </div>
+
+    </div>
+
+    <p>System Status : Online</p>
+
+</div>
+
+</div>
