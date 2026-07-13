@@ -21,20 +21,136 @@
 
         <div class="header-actions">
 
-            <button class="btn-primary">
+            <button class="btn-primary" id="uploadDatasetBtn">
                 <i class="bi bi-upload"></i>
                 Upload Dataset
             </button>
 
-            <button class="btn-secondary">
+            <button class="btn-secondary" id="captureDatasetBtn">
                 <i class="bi bi-camera"></i>
                 Capture Images
             </button>
 
-            <button class="btn-secondary">
+            <button class="btn-secondary" id="importZipBtn">
                 <i class="bi bi-file-earmark-zip"></i>
                 Import ZIP
             </button>
+
+        </div>
+
+    </div>
+
+    <!-- ============================= -->
+    <!-- Dataset Collection -->
+    <!-- ============================= -->
+
+    <div class="table-card">
+
+        <div class="card-header">
+
+            <h3>Dataset Collection</h3>
+
+        </div>
+
+        <div class="row g-3 mt-2">
+
+            <div class="col-md-5">
+
+                <label class="form-label">
+                    Gesture Name
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="gestureName"
+                    placeholder="Example : HELLO">
+
+            </div>
+
+            <div class="col-md-3">
+
+                <label class="form-label">
+                    Number of Images
+                </label>
+
+                <input
+                    type="number"
+                    class="form-control"
+                    id="imageCount"
+                    value="500"
+                    min="10">
+
+            </div>
+
+            <div class="col-md-4 d-flex align-items-end">
+
+                <button
+                    class="btn btn-success w-100"
+                    id="startCollection">
+
+                    Start Collection
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="row mt-3">
+
+            <div class="col-md-12">
+
+                <button
+                    class="btn btn-danger w-100"
+                    id="stopCollection"
+                    disabled>
+
+                    Stop Collection
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="mt-4">
+
+            <label class="form-label">
+
+                Collection Progress
+
+            </label>
+
+            <div class="progress" style="height:22px;">
+
+                <div
+                    id="collectionProgress"
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    style="width:0%;">
+
+                    0%
+
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-between mt-2">
+
+                <span id="collectionStatus">
+
+                    Waiting...
+
+                </span>
+
+                <span id="imageCounter">
+
+                    0 / 0
+
+                </span>
+
+            </div>
 
         </div>
 
@@ -48,8 +164,7 @@
 
         <input
             type="text"
-            placeholder="Search gesture class..."
-        >
+            placeholder="Search gesture class...">
 
     </div>
 
@@ -61,103 +176,34 @@
 
             <thead>
 
-            <tr>
+                <tr>
 
-                <th>Gesture</th>
+                    <th>Gesture</th>
 
-                <th>Images</th>
+                    <th>Images</th>
 
-                <th>Training</th>
+                    <th>Training</th>
 
-                <th>Testing</th>
+                    <th>Testing</th>
 
-                <th>Status</th>
+                    <th>Status</th>
 
-                <th>Action</th>
+                    <th>Action</th>
 
-            </tr>
+                </tr>
 
             </thead>
 
-            <tbody>
+            <tbody id="datasetTableBody">
+                <tr>
 
-            <tr>
+                    <td colspan="6" style="text-align:center;">
 
-                <td>A</td>
+                        Dataset information will appear here after collection.
 
-                <td>500</td>
+                    </td>
 
-                <td>400</td>
-
-                <td>100</td>
-
-                <td>
-                    <span class="ready">Ready</span>
-                </td>
-
-                <td class="action-icons">
-
-                    <i class="bi bi-eye"></i>
-
-                    <i class="bi bi-pencil-square"></i>
-
-                    <i class="bi bi-trash"></i>
-
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td>B</td>
-
-                <td>500</td>
-
-                <td>400</td>
-
-                <td>100</td>
-
-                <td>
-                    <span class="ready">Ready</span>
-                </td>
-
-                <td class="action-icons">
-
-                    <i class="bi bi-eye"></i>
-
-                    <i class="bi bi-pencil-square"></i>
-
-                    <i class="bi bi-trash"></i>
-
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td>C</td>
-
-                <td>500</td>
-
-                <td>400</td>
-
-                <td>100</td>
-
-                <td>
-                    <span class="ready">Ready</span>
-                </td>
-
-                <td class="action-icons">
-
-                    <i class="bi bi-eye"></i>
-
-                    <i class="bi bi-pencil-square"></i>
-
-                    <i class="bi bi-trash"></i>
-
-                </td>
-
-            </tr>
+                </tr>
 
             </tbody>
 
@@ -173,7 +219,7 @@
 
             <h4>Total Classes</h4>
 
-            <h2>26</h2>
+            <h2 id="totalClasses">0</h2>
 
         </div>
 
@@ -181,7 +227,7 @@
 
             <h4>Total Images</h4>
 
-            <h2>13,000</h2>
+            <h2 id="totalImages">0</h2>
 
         </div>
 
@@ -189,7 +235,7 @@
 
             <h4>Training Images</h4>
 
-            <h2>10,400</h2>
+            <h2 id="trainingImages">0</h2>
 
         </div>
 
@@ -197,7 +243,7 @@
 
             <h4>Testing Images</h4>
 
-            <h2>2,600</h2>
+            <h2 id="testingImages">0</h2>
 
         </div>
 
