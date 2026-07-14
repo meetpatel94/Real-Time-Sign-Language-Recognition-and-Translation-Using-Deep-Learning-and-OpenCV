@@ -1,5 +1,6 @@
 from flask import Flask, render_template, Response, jsonify, request
-
+from flask import send_from_directory
+import os
 from core.camera import (
     generate_frames,
     capture_frame,
@@ -15,7 +16,9 @@ from core.camera import (
 
 from core.dataset import (
     dataset_summary,
-    dataset_table
+    dataset_table,
+    delete_gesture,
+    view_gesture_images
 )
 
 app = Flask(__name__)
@@ -287,7 +290,67 @@ def dataset_info():
 
     })
 
+# ==========================================
+# Delete Gesture
+# ==========================================
 
+@app.route("/delete_gesture", methods=["POST"])
+def delete_gesture_route():
+
+    data = request.get_json()
+
+    gesture = data.get("gesture", "")
+
+    if gesture == "":
+
+        return jsonify({
+
+            "status": "error"
+
+        })
+
+    if delete_gesture(gesture):
+
+        return jsonify({
+
+            "status": "success"
+
+        })
+
+    return jsonify({
+
+        "status": "failed"
+
+    })
+
+# ==========================================
+# View Gesture Images
+# ==========================================
+
+@app.route("/view_gesture/<gesture>")
+def view_gesture_route(gesture):
+
+    return jsonify({
+
+        "images": view_gesture_images(gesture)
+
+    })
+
+
+# ==========================================
+# Dataset Image
+# ==========================================
+
+@app.route("/dataset_image/<gesture>/<filename>")
+def dataset_image(gesture, filename):
+
+    folder = os.path.join(
+        "dataset",
+        gesture.upper()
+    )
+
+    return send_from_directory(folder, filename)
+  
 # ==========================================
 # Future APIs
 # ==========================================

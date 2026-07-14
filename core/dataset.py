@@ -1,5 +1,5 @@
 import os
-
+import shutil
 
 def dataset_summary():
 
@@ -85,3 +85,44 @@ def dataset_table():
         })
 
     return rows
+
+# ==========================================
+# Delete Gesture Folder
+# ==========================================
+
+def delete_gesture(gesture):
+
+    folder = os.path.join("dataset", gesture.upper())
+
+    if not os.path.exists(folder):
+
+        return False
+
+    shutil.rmtree(folder)
+
+    return True
+
+# ==========================================
+# View Gesture Images
+# ==========================================
+
+def view_gesture_images(gesture):
+
+    folder = os.path.join(
+        "dataset",
+        gesture.upper()
+    )
+
+    if not os.path.exists(folder):
+
+        return []
+
+    images = []
+
+    for file in sorted(os.listdir(folder)):
+
+        if file.lower().endswith((".jpg", ".jpeg", ".png")):
+
+            images.append(file)
+
+    return images

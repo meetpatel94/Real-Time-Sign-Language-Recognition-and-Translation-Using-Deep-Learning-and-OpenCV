@@ -405,54 +405,210 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             data.table.forEach(item => {
-
+ 
                 tbody.innerHTML += `
 
-                <tr>
+                    <tr>
 
-                    <td>${item.gesture}</td>
+                        <td>${item.gesture}</td>
 
-                    <td>${item.images}</td>
+                        <td>${item.images}</td>
 
-                    <td>${item.training}</td>
+                        <td>${item.training}</td>
 
-                    <td>${item.testing}</td>
+                        <td>${item.testing}</td>
 
-                    <td>
+                        <td>
 
-                        <span class="ready">
+                            <span class="ready">
 
-                            ${item.status}
+                                ${item.status}
 
-                        </span>
+                            </span>
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        <button
-                            class="btn btn-sm btn-outline-light viewGesture"
-                            data-gesture="${item.gesture}">
+                            <button
+                                class="btn btn-sm btn-outline-info viewGesture"
+                                data-gesture="${item.gesture}">
 
-                            <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye"></i>
 
-                        </button>
+                            </button>
 
-                        <button
-                            class="btn btn-sm btn-outline-danger deleteGesture"
-                            data-gesture="${item.gesture}">
+                            <button
+                                class="btn btn-sm btn-outline-danger deleteGesture"
+                                data-gesture="${item.gesture}">
 
-                            <i class="bi bi-trash"></i>
+                                <i class="bi bi-trash"></i>
 
-                        </button>
+                            </button>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-                `;
+                `; 
 
             });
+            // 
+            // ===========================================
+            // Delete Gesture
+            // ===========================================
+
+            document.querySelectorAll(".deleteGesture").forEach(button => {
+
+                button.onclick = function () {
+
+                    const gesture = this.dataset.gesture;
+
+                    if (!confirm(`Delete "${gesture}" dataset?`)) {
+
+                        return;
+
+                    }
+
+                    fetch("/delete_gesture", {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type": "application/json"
+
+                        },
+
+                        body: JSON.stringify({
+
+                            gesture: gesture
+
+                        })
+
+                    })
+
+                    .then(res => res.json())
+
+                    .then(data => {
+
+                        if (data.status === "success") {
+
+                            alert("Dataset Deleted Successfully");
+
+                            loadDatasetInfo();
+
+                        }
+
+                        else {
+
+                            alert("Unable to Delete Dataset");
+
+                        }
+
+                    });
+
+                };
+
+            });
+
+            // ===========================================
+            // View Gesture Images
+            // ===========================================
+
+            document.querySelectorAll(".viewGesture").forEach(button => {
+
+                button.onclick = function () {
+
+                    const gesture = this.dataset.gesture;
+
+                    fetch("/view_gesture/" + gesture)
+
+                    .then(res => res.json())
+
+                    .then(data => {
+
+                        const grid =
+                        document.getElementById("gestureImageGrid");
+
+                        grid.innerHTML = "";
+
+                        if(data.images.length===0){
+
+                            grid.innerHTML=`
+
+                            <div class="col-12">
+
+                                <div class="alert alert-warning text-center shadow-sm">
+
+                                    <i class="bi bi-exclamation-triangle-fill fs-2"></i>
+
+                                    <h4 class="mt-3 mb-2">
+
+                                        No Images Available
+
+                                    </h4>
+
+                                    <p class="mb-0">
+
+                                        This gesture dataset is empty.<br>
+
+                                        Please collect images first.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            `;
+
+                            const modal = new bootstrap.Modal(
+
+                                document.getElementById("viewImagesModal")
+
+                            );
+
+                            modal.show();
+
+                            return;
+
+                        }
+
+                        data.images.forEach(image=>{
+
+                            grid.innerHTML+=`
+
+                            <div class="col-lg-3 col-md-4 col-6">
+
+                                <img
+
+                                    src="/dataset_image/${gesture}/${image}"
+
+                                    class="img-fluid"
+
+                                >
+
+                            </div>
+
+                            `;
+
+                        });
+
+                        const modal =
+                        new bootstrap.Modal(
+
+                            document.getElementById("viewImagesModal")
+
+                        );
+
+                        modal.show();
+
+                    });
+
+                };
+
+            });  
 
         });
 

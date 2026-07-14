@@ -520,8 +520,30 @@ font-size:20px;
     opacity:.8;
 }
 
-#handStatus{
-   
+/* ==========================================
+   Dataset Image Gallery
+========================================== */
+
+#gestureImageGrid img{
+
+    width:100%;
+
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#gestureImageGrid img:hover{
+
+    transform:scale(1.05);
+
 }
 
 @keyframes popupUp{
