@@ -7,33 +7,42 @@
 {% endblock %}
 
 {% block page_content %}
+<!-- ======================================= -->
+<!-- Camera Loading Popup -->
+<!-- ======================================= -->
 
 <div class="dataset-container">
 
-    <!-- Header -->
+    <!-- ============================= -->
+    <!-- Page Header -->
+    <!-- ============================= -->
 
     <div class="page-header">
 
         <div>
+
             <h2>Dataset Management</h2>
-            <p>Manage gesture images, classes and dataset information.</p>
+
+            <p>Collect, manage and organize gesture images for model training.</p>
+
         </div>
 
-        <div class="header-actions">
+        <div class="header-actions dataset-actions">
 
-            <button class="btn-primary" id="uploadDatasetBtn">
+            <button class="btn-primary action-btn" id="uploadDatasetBtn">
+
                 <i class="bi bi-upload"></i>
+
                 Upload Dataset
+
             </button>
 
-            <button class="btn-secondary" id="captureDatasetBtn">
-                <i class="bi bi-camera"></i>
-                Capture Images
-            </button>
+            <button class="btn-secondary action-btn" id="importZipBtn">
 
-            <button class="btn-secondary" id="importZipBtn">
                 <i class="bi bi-file-earmark-zip"></i>
+
                 Import ZIP
+
             </button>
 
         </div>
@@ -41,122 +50,311 @@
     </div>
 
     <!-- ============================= -->
-    <!-- Dataset Collection -->
+    <!-- Dataset Main Layout -->
     <!-- ============================= -->
 
-    <div class="table-card">
+    <div class="dataset-main">
 
-        <div class="card-header">
+        <!-- ============================= -->
+        <!-- LEFT SIDE : CAMERA -->
+        <!-- ============================= -->
 
-            <h3>Dataset Collection</h3>
+        <div class="camera-card">
 
-        </div>
+            <div class="camera-header">
 
-        <div class="row g-3 mt-2">
+                <span>
 
-            <div class="col-md-5">
+                    🟢 Live Dataset Camera
 
-                <label class="form-label">
-                    Gesture Name
-                </label>
+                </span>
 
-                <input
-                    type="text"
-                    class="form-control"
-                    id="gestureName"
-                    placeholder="Example : HELLO">
+                <span id="datasetCameraStatus">
 
-            </div>
+                    Stopped
 
-            <div class="col-md-3">
-
-                <label class="form-label">
-                    Number of Images
-                </label>
-
-                <input
-                    type="number"
-                    class="form-control"
-                    id="imageCount"
-                    value="500"
-                    min="10">
+                </span>
 
             </div>
 
-            <div class="col-md-4 d-flex align-items-end">
+            <div class="camera-screen" id="datasetCameraScreen">
 
-                <button
-                    class="btn btn-success w-100"
-                    id="startCollection">
-
-                    Start Collection
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="row mt-3">
-
-            <div class="col-md-12">
-
-                <button
-                    class="btn btn-danger w-100"
-                    id="stopCollection"
-                    disabled>
-
-                    Stop Collection
-
-                </button>
-
-            </div>
-
-        </div>
-
-        <div class="mt-4">
-
-            <label class="form-label">
-
-                Collection Progress
-
-            </label>
-
-            <div class="progress" style="height:22px;">
+                <img
+                    id="datasetCameraFeed"
+                    src=""
+                    alt="Dataset Camera"
+                    style="display:none;">
 
                 <div
-                    id="collectionProgress"
-                    class="progress-bar progress-bar-striped progress-bar-animated"
-                    role="progressbar"
-                    style="width:0%;">
+                    class="camera-placeholder"
+                    id="datasetPlaceholder">
 
-                    0%
+                    <i class="bi bi-camera-video"></i>
+
+                    <h3>
+
+                        Dataset Camera
+
+                    </h3>
+
+                    <p>
+
+                        Press Start Collection
+
+                    </p>
 
                 </div>
 
             </div>
 
-            <div class="d-flex justify-content-between mt-2">
+            <!-- Live Information -->
 
-                <span id="collectionStatus">
+            <div class="live-info-grid">
 
-                    Waiting...
+                <div class="info-box">
+
+                    <small>
+
+                        Gesture
+
+                    </small>
+
+                    <h4 id="currentGesture">
+
+                        -
+
+                    </h4>
+
+                </div>
+
+                <div class="info-box">
+
+                    <small>
+
+                        Captured
+
+                    </small>
+
+                    <h4 id="capturedImages">
+
+                        0
+
+                    </h4>
+
+                </div>
+
+                <div class="info-box">
+
+                    <small>
+
+                        Hand
+
+                    </small>
+
+                    <h4 id="handStatus">
+
+                       Not Detected
+
+                    </h4>
+
+                </div>
+
+                <div class="info-box">
+
+                    <small>
+
+                        FPS
+
+                    </small>
+
+                    <h4 id="datasetFPS">
+
+                        0
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================= -->
+        <!-- RIGHT SIDE : CONTROLS -->
+        <!-- ============================= -->
+
+        <div class="collection-card">
+
+            <h3>
+
+                Dataset Collection
+
+            </h3>
+
+            <label class="form-label">
+
+                Gesture Name
+
+            </label>
+
+            <input
+                type="text"
+                id="gestureName"
+                class="form-control"
+                placeholder="Example : HELLO">
+
+            <label
+                class="form-label mt-3">
+
+                Number of Images
+
+            </label>
+
+            <input
+                type="number"
+                id="imageCount"
+                class="form-control"
+                value="50"
+                min="10">
+
+            <!-- Start Collection -->
+
+            <button
+                class="btn btn-success w-100 mt-4"
+                id="startCollection">
+
+                <i class="bi bi-play-fill"></i>
+
+                Start Collection
+
+            </button>
+
+            <!-- Stop + Clear -->
+
+            <div class="d-flex gap-3 mt-3">
+
+                <button
+                    class="btn btn-danger flex-fill"
+                    id="stopCollection"
+                    disabled>
+
+                    <i class="bi bi-stop-fill"></i>
+
+                    Stop
+
+                </button>
+
+                <button
+                    class="btn btn-secondary flex-fill"
+                    id="clearCollection" disabled>
+
+                    <i class="bi bi-trash"></i>
+
+                    Clear
+
+                </button>
+
+            </div>
+
+            <hr>
+
+            <div class="status-item">
+
+                <span>
+
+                    Camera
 
                 </span>
 
-                <span id="imageCounter">
+                <strong id="cameraState">
 
-                    0 / 0
+                    Stopped
+
+                </strong>
+
+            </div>
+
+            <div class="status-item">
+
+                <span>
+
+                    Collection
 
                 </span>
+
+                <strong id="collectionState">
+
+                    Waiting
+
+                </strong>
+
+            </div>
+
+            <div class="status-item">
+
+                <span>
+
+                    Saved Images
+
+                </span>
+
+                <strong id="savedCount">
+
+                    0
+
+                </strong>
 
             </div>
 
         </div>
 
     </div>
+        <!-- ============================= -->
+    <!-- Progress Section -->
+    <!-- ============================= -->
 
+    <div class="progress-card">
+
+        <div class="progress-header">
+
+            <h3>Collection Progress</h3>
+
+            <span id="imageCounter">
+
+                0 / 0
+
+            </span>
+
+        </div>
+
+        <div class="progress">
+
+            <div
+                id="collectionProgress"
+                class="progress-bar"
+                style="width:0%;">
+
+                0%
+
+            </div>
+
+        </div>
+
+        <div class="progress-status">
+
+            <span id="collectionStatus">
+
+                Waiting to Start...
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- ============================= -->
     <!-- Search -->
+    <!-- ============================= -->
 
     <div class="search-box">
 
@@ -164,13 +362,26 @@
 
         <input
             type="text"
-            placeholder="Search gesture class...">
+            id="searchGesture"
+            placeholder="Search Gesture...">
 
     </div>
 
-    <!-- Table -->
+    <!-- ============================= -->
+    <!-- Dataset Table -->
+    <!-- ============================= -->
 
     <div class="table-card">
+
+        <div class="table-header">
+
+            <h3>
+
+                Dataset Information
+
+            </h3>
+
+        </div>
 
         <table>
 
@@ -195,11 +406,12 @@
             </thead>
 
             <tbody id="datasetTableBody">
+
                 <tr>
 
-                    <td colspan="6" style="text-align:center;">
+                    <td colspan="6">
 
-                        Dataset information will appear here after collection.
+                        No Dataset Available
 
                     </td>
 
@@ -211,7 +423,9 @@
 
     </div>
 
+    <!-- ============================= -->
     <!-- Summary -->
+    <!-- ============================= -->
 
     <div class="summary-grid">
 
@@ -219,7 +433,11 @@
 
             <h4>Total Classes</h4>
 
-            <h2 id="totalClasses">0</h2>
+            <h2 id="totalClasses">
+
+                0
+
+            </h2>
 
         </div>
 
@@ -227,7 +445,11 @@
 
             <h4>Total Images</h4>
 
-            <h2 id="totalImages">0</h2>
+            <h2 id="totalImages">
+
+                0
+
+            </h2>
 
         </div>
 
@@ -235,7 +457,11 @@
 
             <h4>Training Images</h4>
 
-            <h2 id="trainingImages">0</h2>
+            <h2 id="trainingImages">
+
+                0
+
+            </h2>
 
         </div>
 
@@ -243,7 +469,28 @@
 
             <h4>Testing Images</h4>
 
-            <h2 id="testingImages">0</h2>
+            <h2 id="testingImages">
+
+                0
+
+            </h2>
+
+        </div>
+
+    </div>
+    <div id="cameraLoadingPopup" class="camera-loading-popup">
+
+    <div class="loading-box">
+
+        <div class="spinner-border text-light" role="status"></div>
+
+        <div class="loading-text">
+
+            <h5>Opening Camera...</h5>
+
+            <p>Please wait a few seconds.</p>
+
+        </div>
 
         </div>
 
