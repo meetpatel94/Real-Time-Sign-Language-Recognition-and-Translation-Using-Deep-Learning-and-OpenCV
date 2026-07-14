@@ -1,6 +1,13 @@
-from flask import Flask, render_template, Response, jsonify, request
-from flask import send_from_directory
 import os
+import csv
+import json
+import psutil
+import platform
+
+from flask import render_template, Response, jsonify, request
+from flask import send_from_directory
+
+from flask import send_file
 from core.camera import (
     generate_frames,
     capture_frame,
@@ -20,8 +27,16 @@ from core.dataset import (
     delete_gesture,
     view_gesture_images
 )
+from training.training_status import stop_training
+from training.training_status import load_status
+from flask import Flask
+from threading import Thread
+from training.trainer import train_model
+
 
 app = Flask(__name__)
+
+training_thread = None
 
 # ==========================================
 # Dashboard
@@ -75,6 +90,211 @@ def model_training():
         page_title="Model Training",
         page_subtitle="Train AI Model"
     )
+
+@app.route("/start_training", methods=["POST"])
+def start_training():
+
+    global training_thread
+
+    if training_thread and training_thread.is_alive():
+
+        return jsonify({
+
+            "status": "running"
+
+        })
+
+    training_thread = Thread(
+
+        target=train_model,
+
+        daemon=True
+
+    )
+
+    training_thread.start()
+
+    return jsonify({
+
+        "status": "started"
+
+    })
+
+# ==========================================
+# Training Status
+# ==========================================
+
+@app.route("/training_status")
+def training_status():
+
+    return jsonify(
+
+        load_status()
+
+    )
+    
+# ==========================================
+# Export Model
+# ==========================================
+
+@app.route("/export_model")
+def export_model():
+
+    model_path = os.path.join(
+        "models",
+        "gesture_model.h5"
+    )
+
+    if not os.path.exists(model_path):
+
+        return jsonify({
+
+            "status": "error",
+
+            "message": "Model not found"
+
+        }), 404
+
+    return send_file(
+
+        model_path,
+
+        as_attachment=True,
+
+        download_name="gesture_model.h5"
+
+    )
+
+@app.route("/stop_training", methods=["POST"])
+def stop_training_route():
+
+    stop_training()
+
+    return jsonify({
+
+        "status": "stopping"
+
+    })
+
+# ==========================================
+# Download Training JSON
+# ==========================================
+
+@app.route("/download_training_json")
+def download_training_json():
+
+    path = os.path.join(
+
+        "models",
+
+        "training_history.json"
+
+    )
+
+    if not os.path.exists(path):
+
+        return jsonify({
+
+            "status": "error"
+
+        }),404
+
+    return send_file(
+
+        path,
+
+        as_attachment=True,
+
+        download_name="training_history.json"
+
+    )
+
+# ==========================================
+# Download Training CSV
+# ==========================================
+
+@app.route("/download_training_csv")
+def download_training_csv():
+
+    history_path = os.path.join(
+        "models",
+        "training_history.json"
+    )
+
+    if not os.path.exists(history_path):
+
+        return jsonify({
+            "status": "error",
+            "message": "Training history not found."
+        }), 404
+
+    with open(history_path, "r") as f:
+
+        history = json.load(f)
+
+    csv_path = os.path.join(
+        "models",
+        "training_history.csv"
+    )
+
+    epochs = len(history["accuracy"])
+
+    with open(csv_path, "w", newline="") as csvfile:
+
+        writer = csv.writer(csvfile)
+
+        writer.writerow([
+            "Epoch",
+            "Accuracy",
+            "Loss",
+            "Validation Accuracy",
+            "Validation Loss"
+        ])
+
+        for i in range(epochs):
+
+            writer.writerow([
+
+                i + 1,
+
+                round(history["accuracy"][i], 4),
+
+                round(history["loss"][i], 4),
+
+                round(history["val_accuracy"][i], 4),
+
+                round(history["val_loss"][i], 4)
+
+            ])
+
+    return send_file(
+
+        csv_path,
+
+        as_attachment=True,
+
+        download_name="training_history.csv"
+
+    )
+    
+@app.route("/system_info")
+def system_info():
+
+    cpu = psutil.cpu_percent(interval=0.2)
+
+    ram = psutil.virtual_memory()
+
+    return jsonify({
+
+        "cpu": cpu,
+
+        "ram_used": round(ram.used / (1024**3), 1),
+
+        "ram_total": round(ram.total / (1024**3), 1),
+
+        "device": platform.processor()
+
+    })
 
 # ==========================================
 # History
@@ -404,7 +624,11 @@ def analytics_api():
 if __name__ == "__main__":
 
     app.run(
+
         debug=True,
+
         host="0.0.0.0",
+
         port=5000
+
     )

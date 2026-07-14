@@ -1,0 +1,11 @@
+{
+    "running": false,
+    "progress": 100,
+    "epoch": 30,
+    "total_epochs": 30,
+    "accuracy": 0.3499999940395355,
+    "loss": 2.221092700958252,
+    "val_accuracy": 0.25,
+    "val_loss": 3.4809203147888184,
+    "message": "Training Completed"
+}

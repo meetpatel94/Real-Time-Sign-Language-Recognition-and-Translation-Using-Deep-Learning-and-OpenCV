@@ -10,163 +10,630 @@
 
 <div class="training-page">
 
-    <!-- Header -->
+    <!-- ===========================
+            Header
+    ============================ -->
 
     <div class="page-header">
 
         <div>
+
             <h2>Model Training</h2>
-            <p>Train, monitor and export your hand gesture recognition model.</p>
+
+            <p>
+                Train, monitor and export your hand gesture recognition model.
+            </p>
+
         </div>
 
         <div class="header-actions">
 
-            <button class="btn-primary">
+            <button
+                class="btn-primary"
+                id="startTrainingBtn">
+
                 <i class="bi bi-play-fill"></i>
+
                 Start Training
+
             </button>
 
-            <button class="btn-secondary">
+            <button
+                class="btn-danger"
+                id="stopTrainingBtn"
+                disabled>
+
                 <i class="bi bi-stop-fill"></i>
-                Stop
+
+                Stop Training
+
             </button>
 
-            <button class="btn-secondary">
+            <button
+                class="btn-success"
+                id="exportModelBtn"
+                disabled>
+
                 <i class="bi bi-download"></i>
+
                 Export Model
+
             </button>
 
         </div>
 
     </div>
 
-    <!-- Configuration -->
 
-    <div class="config-grid">
+    <!-- ===========================
+            Top Information Cards
+    ============================ -->
 
-        <div class="config-card">
-            <h5>Dataset</h5>
-            <h3>ASL Dataset</h3>
-        </div>
+    <div class="info-grid">
 
-        <div class="config-card">
-            <h5>Model</h5>
-            <h3>CNN</h3>
-        </div>
+        <!-- Dataset -->
 
-        <div class="config-card">
-            <h5>Epochs</h5>
-            <h3>100</h3>
-        </div>
+        <div class="info-card">
 
-        <div class="config-card">
-            <h5>Batch Size</h5>
-            <h3>32</h3>
-        </div>
+            <div class="card-icon blue">
 
-    </div>
-
-    <!-- Progress -->
-
-    <div class="progress-card">
-
-        <div class="progress-header">
-
-            <h3>Training Progress</h3>
-
-            <span>65%</span>
-
-        </div>
-
-        <div class="progress-bar">
-
-            <div class="progress-fill"></div>
-
-        </div>
-
-        <div class="progress-info">
-
-            <span>Epoch : 65 / 100</span>
-
-            <span>ETA : 2 min</span>
-
-        </div>
-
-    </div>
-
-    <!-- Metrics -->
-
-    <div class="metrics-grid">
-
-        <div class="metric-card">
-
-            <h5>Accuracy</h5>
-
-            <h2>98.72%</h2>
-
-        </div>
-
-        <div class="metric-card">
-
-            <h5>Loss</h5>
-
-            <h2>0.021</h2>
-
-        </div>
-
-        <div class="metric-card">
-
-            <h5>Validation Accuracy</h5>
-
-            <h2>98.15%</h2>
-
-        </div>
-
-        <div class="metric-card">
-
-            <h5>Learning Rate</h5>
-
-            <h2>0.001</h2>
-
-        </div>
-
-    </div>
-
-    <!-- Logs + Charts -->
-
-    <div class="training-grid">
-
-        <div class="logs-card">
-
-            <div class="section-title">
-
-                <h3>Training Logs</h3>
+                <i class="bi bi-database-fill"></i>
 
             </div>
 
-            <div class="logs">
+            <div class="card-content">
 
-                <p>✔ Epoch 1 Completed</p>
-                <p>✔ Epoch 2 Completed</p>
-                <p>✔ Epoch 3 Completed</p>
-                <p>✔ Epoch 4 Completed</p>
-                <p>✔ Epoch 5 Completed</p>
+                <h5>Dataset</h5>
+
+                <h2 id="datasetName">
+
+                    Custom Gesture Dataset
+
+                </h2>
+
+                <div class="card-footer">
+
+                    <span>Total Images</span>
+
+                    <strong id="totalImages">
+
+                        158
+
+                    </strong>
+
+                </div>
 
             </div>
 
         </div>
+
+
+        <!-- Classes -->
+
+        <div class="info-card">
+
+            <div class="card-icon green">
+
+                <i class="bi bi-people-fill"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <h5>Classes</h5>
+
+                <h2 id="totalClasses">
+
+                    11
+
+                </h2>
+
+                <div class="card-footer">
+
+                    <span id="classNames">
+
+                        BYE, C, HA...
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Image Size -->
+
+        <div class="info-card">
+
+            <div class="card-icon orange">
+
+                <i class="bi bi-image-fill"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <h5>Image Size</h5>
+
+                <h2>
+
+                    64 × 64
+
+                </h2>
+
+                <div class="card-footer">
+
+                    <span>Channels</span>
+
+                    <strong>
+
+                        RGB
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Train Test -->
+
+        <div class="info-card">
+
+            <div class="card-icon purple">
+
+                <i class="bi bi-pie-chart-fill"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <h5>Train / Test</h5>
+
+                <h2>
+
+                    80% / 20%
+
+                </h2>
+
+                <div class="card-footer">
+
+                    <span id="splitInfo">
+
+                        126 / 32 Images
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+                <!-- Model -->
+
+        <div class="info-card">
+
+            <div class="card-icon cyan">
+
+                <i class="bi bi-cpu-fill"></i>
+
+            </div>
+
+            <div class="card-content">
+
+                <h5>Model</h5>
+
+                <h2>
+
+                    CNN
+
+                </h2>
+
+                <div class="card-footer">
+
+                    <span>
+
+                        Convolutional Neural Network
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+            Progress + Metrics + System
+    =========================================== -->
+
+    <div class="training-status-grid">
+
+        <!-- Progress -->
+
+        <div class="progress-card">
+
+            <div class="card-header">
+
+                <h3>
+
+                    Training Progress
+
+                </h3>
+
+                <span class="live-badge">
+
+                    <i class="bi bi-broadcast"></i>
+
+                    Live
+
+                </span>
+
+            </div>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress-fill"
+                    id="progressFill">
+
+                </div>
+
+            </div>
+
+            <div class="progress-percent">
+
+                <span id="progressPercent">
+
+                    0%
+
+                </span>
+
+            </div>
+
+            <div class="progress-footer">
+
+                <span id="epochText">
+
+                    Epoch : 0 / 0
+
+                </span>
+
+                <span id="etaText">
+
+                    ETA : --
+
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Current Metrics -->
+
+        <div class="metrics-card">
+
+            <div class="card-header">
+
+                <h3>
+
+                    Current Metrics
+
+                </h3>
+
+            </div>
+
+            <div class="metric-row">
+
+                <div>
+
+                    <small>
+
+                        Training Accuracy
+
+                    </small>
+
+                    <h2 id="accuracyValue">
+
+                        0%
+
+                    </h2>
+
+                </div>
+
+                <div>
+
+                    <small>
+
+                        Validation Accuracy
+
+                    </small>
+
+                    <h2 id="valAccuracyValue">
+
+                        0%
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="metric-row">
+
+                <div>
+
+                    <small>
+
+                        Training Loss
+
+                    </small>
+
+                    <h2 id="lossValue">
+
+                        0
+
+                    </h2>
+
+                </div>
+
+                <div>
+
+                    <small>
+
+                        Learning Rate
+
+                    </small>
+
+                    <h2>
+
+                        0.001
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- System -->
+
+        <div class="system-card">
+
+            <div class="card-header">
+
+                <h3>
+
+                    System Info
+
+                </h3>
+
+            </div>
+
+            <div class="system-row">
+
+                <span>
+
+                    CPU Usage
+
+                </span>
+
+                <strong id="cpuUsage">
+
+                    0%
+
+                </strong>
+
+            </div>
+
+            <div class="system-row">
+
+                <span>
+
+                    RAM Usage
+
+                </span>
+
+                <strong id="ramUsage">
+
+                    0 GB
+
+                </strong>
+
+            </div>
+
+            <div class="system-row">
+
+                <span>
+
+                    Device
+
+                </span>
+
+                <strong id="deviceName">
+
+                    CPU
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- ==========================================
+            Graph + Logs
+    =========================================== -->
+
+    <div class="bottom-grid">
+
+        <!-- ===========================
+                Training Analytics
+        ============================ -->
 
         <div class="chart-card">
 
-            <div class="section-title">
+            <div class="chart-header">
 
-                <h3>Training Graph</h3>
+                <div>
+
+                    <h3>
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                        Training Analytics
+
+                    </h3>
+
+                    <small>
+
+                        Accuracy & Loss per Epoch
+
+                    </small>
+
+                </div>
+
+                <span
+                    class="live-badge"
+                    id="liveBadge">
+
+                    🟢 Live
+
+                </span>
 
             </div>
 
-            <div class="chart-placeholder">
 
-                📈 Accuracy & Loss Graph
+            <!-- Toolbar -->
+
+            <div class="chart-toolbar">
+
+                <button id="zoomInBtn">
+
+                    <i class="bi bi-zoom-in"></i>
+
+                </button>
+
+                <button id="zoomOutBtn">
+
+                    <i class="bi bi-zoom-out"></i>
+
+                </button>
+
+                <button id="resetZoomBtn">
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                </button>
+
+                <button id="downloadPNGBtn">
+
+                    <i class="bi bi-image"></i>
+
+                    PNG
+
+                </button>
+
+                <button id="downloadCSVBtn" >
+
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+
+                    CSV
+
+                </button>
+
+                <button id="downloadJSONBtn" >
+
+                    <i class="bi bi-filetype-json"></i>
+
+                    JSON
+
+                </button>
+
+                <button id="fullscreenBtn">
+
+                    <i class="bi bi-arrows-fullscreen"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Chart -->
+
+            <div class="chart-container">
+
+                <canvas id="trainingChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===========================
+                Training Logs
+        ============================ -->
+
+        <div class="logs-card lg-cr">
+
+            <div class="chart-header">
+
+                <div>
+
+                    <h3>
+
+                        <i class="bi bi-terminal-fill"></i>
+
+                        Training Logs
+
+                    </h3>
+
+                    <small>
+
+                        Live Console Output
+
+                    </small>
+
+                </div>
+
+                <button
+                    class="clear-log-btn"
+                    id="clearLogsBtn">
+
+                    Clear Logs
+
+                </button>
+
+            </div>
+
+
+            <div
+                class="logs"
+                id="trainingLogs">
+
+                <p>
+
+                    <span class="log-time">
+
+                        00:00
+
+                    </span>
+
+                    Waiting for training...
+
+                </p>
 
             </div>
 
@@ -175,5 +642,12 @@
     </div>
 
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/training.js') }}"></script>
 
 {% endblock %}
