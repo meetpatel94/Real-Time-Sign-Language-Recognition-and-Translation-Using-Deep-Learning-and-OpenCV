@@ -3,6 +3,7 @@ import os
 import mediapipe as mp
 import time
 from datetime import datetime
+from core.predictor import predict_gesture
 
 # ==========================================
 # Global Variables
@@ -12,7 +13,18 @@ camera = None
 latest_frame = None
 camera_running = False
 
+# ==========================================
+# Live Prediction
+# ==========================================
+
+current_prediction = "Waiting"
+current_confidence = 0.0
+
+prediction_history = []
+
+# ==========================================
 # Live Status
+# ==========================================
 
 hand_detected = False
 camera_fps = 0
@@ -172,6 +184,10 @@ def generate_frames():
     global camera_fps
     global last_save_time
 
+    global current_prediction
+    global current_confidence
+    global prediction_history
+
     prev_time = time.time()
     while True:
 
@@ -196,6 +212,7 @@ def generate_frames():
         frame = cv2.flip(frame, 1)
 
         latest_frame = frame.copy()
+        display_frame = frame.copy()
 
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -243,6 +260,62 @@ def generate_frames():
                     (255,255,0),
                     2
                 )
+
+                # ==========================================
+                # Live Gesture Prediction
+                # ==========================================
+
+                hand = latest_frame[ymin:ymax, xmin:xmax]
+
+                if hand.size != 0:
+                    
+                    print("Hand ROI:", hand.shape)
+
+                    gesture, confidence = predict_gesture(hand)
+
+                    current_prediction = gesture
+                    current_confidence = confidence
+
+                    # Keep latest 10 predictions
+                    if confidence >= 80:
+
+                        if (
+                            len(prediction_history) == 0 or
+                            prediction_history[-1]["gesture"] != gesture
+                        ):
+
+                            prediction_history.append({
+
+                                "gesture": gesture,
+
+                                "confidence": confidence,
+
+                                "time": datetime.now().strftime("%H:%M:%S")
+
+                            })
+
+                            if len(prediction_history) > 10:
+
+                                prediction_history.pop(0)
+
+                    # Draw prediction on camera
+                    cv2.putText(
+
+                        frame,
+
+                        f"{gesture} ({confidence:.1f}%)",
+
+                        (xmin, ymin - 10),
+
+                        cv2.FONT_HERSHEY_SIMPLEX,
+
+                        0.8,
+
+                        (0,255,0),
+
+                        2
+
+                    )
 
                 # =========================
                 # Dataset Collection
@@ -299,11 +372,13 @@ def generate_frames():
                         )
 
         if not hand_detected:
+            current_prediction = "Waiting"
+            current_confidence = 0.0
 
             cv2.putText(
                 frame,
                 "No Hand Detected",
-                (20,90),
+                (180,50),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 1,
                 (0,0,255),
@@ -366,5 +441,25 @@ def get_camera_status():
         "hand": hand_detected,
 
         "fps": camera_fps
+
+    }
+    
+# ==========================================
+# Prediction Status
+# ==========================================
+
+def get_prediction_status():
+
+    return {
+
+        "gesture": current_prediction,
+
+        "confidence": round(current_confidence, 2),
+
+        "fps": camera_fps,
+
+        "hand": hand_detected,
+
+        "recent": prediction_history
 
     }

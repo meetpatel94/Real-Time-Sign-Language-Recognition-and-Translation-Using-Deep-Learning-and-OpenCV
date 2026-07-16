@@ -18,7 +18,8 @@ from core.camera import (
     get_camera_status,
     start_dataset_collection,
     stop_dataset_collection,
-    get_dataset_status
+    get_dataset_status,
+    get_prediction_status
 )
 
 from core.dataset import (
@@ -575,17 +576,16 @@ def dataset_image(gesture, filename):
 # Future APIs
 # ==========================================
 
+# ==========================================
+# Live Prediction API
+# ==========================================
+
 @app.route("/prediction")
 def prediction():
 
-    return jsonify({
-
-        "gesture": "Waiting",
-
-        "confidence": 0
-
-    })
-
+    return jsonify(
+        get_prediction_status()
+    )
 
 @app.route("/translation_api")
 def translation_api():

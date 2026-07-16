@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ============================
     // Elements
     // ============================
-
+    const loadingPopup = document.getElementById("cameraLoadingPopup");
     const cameraFeed = document.getElementById("cameraFeed");
     const placeholder = document.getElementById("cameraPlaceholder");
     const cameraScreen = document.getElementById("cameraScreen");
@@ -48,7 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (startBtn) {
 
         startBtn.addEventListener("click", function () {
-
+            
+            loadingPopup.style.display = "block";
             fetch("/start_camera")
                 .then(res => res.json())
                 .then(data => {
@@ -56,6 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.status === "started") {
 
                         cameraFeed.src = "/video_feed?" + new Date().getTime();
+                        cameraFeed.onload = function () {
+                        loadingPopup.style.display = "none";
+                        };
 
                         cameraFeed.style.display = "block";
                         placeholder.style.display = "none";
@@ -67,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         updateCameraStatus(true);
 
                     } else {
-
+                        loadingPopup.style.display = "none";
                         alert("Unable to Start Camera");
 
                     }
@@ -190,32 +194,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }, 1000);
 
-    // ============================
-// Live Status
-// ============================
+//     // ============================
+// // Live Status
+// // ============================
 
-function updateStatus(){
+// function updateStatus(){
 
-    fetch("/status")
-    .then(res=>res.json())
-    .then(data=>{
+//     fetch("/status")
+//     .then(res=>res.json())
+//     .then(data=>{
 
-        if(document.getElementById("predictionBox"))
-            document.getElementById("predictionBox").innerHTML="✋ "+data.prediction;
+//         if(document.getElementById("predictionBox"))
+//             document.getElementById("predictionBox").innerHTML="✋ "+data.prediction;
 
-        if(document.getElementById("confidenceValue"))
-            document.getElementById("confidenceValue").innerHTML=data.confidence;
+//         if(document.getElementById("confidenceValue"))
+//             document.getElementById("confidenceValue").innerHTML=data.confidence;
 
-        if(document.getElementById("fpsValue"))
-            document.getElementById("fpsValue").innerHTML=data.fps;
+//         if(document.getElementById("fpsValue"))
+//             document.getElementById("fpsValue").innerHTML=data.fps;
 
-        if(document.getElementById("modelStatus"))
-            document.getElementById("modelStatus").innerHTML=data.model;
+//         if(document.getElementById("modelStatus"))
+//             document.getElementById("modelStatus").innerHTML=data.model;
 
-    });
+//     });
 
-}
+// }
 
-setInterval(updateStatus,500);
+// setInterval(updateStatus,500);
 
 });

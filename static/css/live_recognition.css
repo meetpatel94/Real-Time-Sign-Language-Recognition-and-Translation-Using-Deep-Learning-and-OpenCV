@@ -1,3 +1,44 @@
+/* ==========================================
+   Header
+========================================== */
+
+.page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+
+}
+
+.header-actions{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+
+}
+
+.btn-primary,
+.btn-secondary{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+
+    height:48px;
+    padding:0 22px;
+
+    border:none;
+    border-radius:12px;
+
+    white-space:nowrap;
+
+}
+
 .live-page{
 
 display:flex;
@@ -159,6 +200,57 @@ font-weight:600;
 
 }
 
+/* ==========================================
+   Camera Loading Popup
+========================================== */
+
+.camera-loading-popup{
+    position:fixed;
+    left:50%;
+    bottom:90px;
+    transform:translateX(-50%);
+    background:#1e293b;
+    color:#fff;
+    padding:16px 24px;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    display:none;
+    z-index:9999;
+    animation:popupUp .25s ease;
+}
+
+.loading-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.loading-text h5{
+    margin:0;
+    font-size:16px;
+    font-weight:600;
+}
+
+.loading-text p{
+    margin:2px 0 0;
+    font-size:13px;
+    opacity:.8;
+}
+
+@keyframes popupUp{
+
+    from{
+        opacity:0;
+        transform:translate(-50%,25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translate(-50%,0);
+    }
+
+}
+
 /* Responsive */
 
 @media(max-width:992px){
@@ -175,5 +267,22 @@ grid-template-columns:1fr;
 height:350px;
 
 }
+
+}
+
+@media(max-width:992px){
+
+    .page-header{
+
+        flex-direction:column;
+        align-items:flex-start;
+
+    }
+
+    .header-actions{
+
+        width:100%;
+
+    }
 
 }
