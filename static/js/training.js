@@ -507,8 +507,67 @@ setInterval(loadSystemInfo,1000);
 
 loadSystemInfo();
 
+function loadDatasetInfo(){
+
+    fetch("/dataset_info")
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        const summary = data.summary;
+        const table = data.table;
+
+        // Dataset
+
+        document.getElementById("datasetName").innerHTML =
+            "Custom Gesture Dataset";
+
+        document.getElementById("totalImages").innerHTML =
+            summary.images;
+
+        // Classes
+
+        document.getElementById("totalClasses").innerHTML =
+            summary.classes;
+
+        // Gesture Names
+
+        let names = table.map(item => item.gesture);
+
+        if(names.length > 3){
+
+            document.getElementById("classNames").innerHTML =
+                names.slice(0,3).join(", ") +
+                " +" + (names.length-3) + " more";
+
+        }
+
+        else{
+
+            document.getElementById("classNames").innerHTML =
+                names.join(", ");
+
+        }
+
+        // Train / Test
+
+        document.getElementById("splitInfo").innerHTML =
+            summary.training +
+            " / " +
+            summary.testing +
+            " Images";
+
+    });
+
+}
+
 // ===========================================
 // Auto Load Existing Status
 // ===========================================
 
 loadTrainingStatus();
+
+loadDatasetInfo();
+
+setInterval(loadDatasetInfo,2000);
