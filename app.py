@@ -4,6 +4,11 @@ import json
 import psutil
 import platform
 
+from database.history_db import (
+    get_predictions,
+    get_statistics
+)
+
 from flask import render_template, Response, jsonify, request
 from flask import send_from_directory
 
@@ -310,6 +315,20 @@ def history():
         page_subtitle="Recognition History"
     )
 
+@app.route("/history_api")
+def history_api():
+
+    return jsonify(
+        get_predictions()
+    )
+    
+@app.route("/history_stats")
+def history_stats():
+
+    return jsonify(
+        get_statistics()
+    )
+
 # ==========================================
 # Analytics
 # ==========================================
@@ -595,13 +614,6 @@ def translation_api():
         "text": ""
 
     })
-
-
-@app.route("/history_api")
-def history_api():
-
-    return jsonify([])
-
 
 @app.route("/analytics_api")
 def analytics_api():

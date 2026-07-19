@@ -44,7 +44,7 @@
 
         <i class="bi bi-search"></i>
 
-        <input type="text" placeholder="Search gesture...">
+        <input type="text" id="searchInput" placeholder="Search gesture...">
 
     </div>
 
@@ -67,34 +67,7 @@
 
             </thead>
 
-            <tbody>
-
-                <tr>
-
-                    <td>12 Jul 2026 08:30 PM</td>
-                    <td>HELLO</td>
-                    <td>98.72%</td>
-                    <td><span class="success">Success</span></td>
-
-                </tr>
-
-                <tr>
-
-                    <td>12 Jul 2026 08:31 PM</td>
-                    <td>THANK YOU</td>
-                    <td>97.95%</td>
-                    <td><span class="success">Success</span></td>
-
-                </tr>
-
-                <tr>
-
-                    <td>12 Jul 2026 08:32 PM</td>
-                    <td>YES</td>
-                    <td>99.11%</td>
-                    <td><span class="success">Success</span></td>
-
-                </tr>
+            <tbody id="historyTableBody">
 
             </tbody>
 
@@ -110,7 +83,7 @@
 
             <h5>Total Predictions</h5>
 
-            <h2>1,254</h2>
+            <h2 id="totalPredictions">0</h2>
 
         </div>
 
@@ -118,7 +91,7 @@
 
             <h5>Today's Predictions</h5>
 
-            <h2>84</h2>
+            <h2 id="todayPredictions">0</h2>
 
         </div>
 
@@ -126,7 +99,7 @@
 
             <h5>Average Confidence</h5>
 
-            <h2>98.64%</h2>
+            <h2 id="averageConfidence">0%</h2>
 
         </div>
 
@@ -134,12 +107,14 @@
 
             <h5>Top Gesture</h5>
 
-            <h2>HELLO</h2>
+            <h2 id="topGesture">-</h2>
 
         </div>
 
     </div>
 
 </div>
+
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
 
 {% endblock %}
